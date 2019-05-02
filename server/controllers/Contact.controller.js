@@ -75,7 +75,7 @@ class ContactController {
             .then(() => {
               res.json({
                 status: 200,
-                error: "Contact Deleted successfully!"
+                message: "Contact Deleted successfully!"
               });
             })
             .catch(err => {
@@ -111,7 +111,7 @@ class ContactController {
             .then(result => {
               res.json({
                 status: 200,
-                error: "Contact Updated Successfully!",
+                message: "Contact Updated Successfully!",
                 data: result
               });
             })
@@ -148,7 +148,7 @@ class ContactController {
             .then(result => {
               res.json({
                 status: 200,
-                error: "Phone updated successfully!",
+                message: "Phone updated successfully!",
                 data: result
               });
             })
