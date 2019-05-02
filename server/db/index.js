@@ -5,12 +5,21 @@ import { contactsTable } from "./tables";
 
 dotenv.config();
 
-const poolOptions = {
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  database: process.env.PGDB,
-  password: process.env.PGPASS
-};
+let poolOptions;
+if (process.env.DATABASE_URL) {
+    poolOptions = {
+        connectionString:process.env.DATABASE_URL
+    }
+}
+else {
+    poolOptions = {
+        user: process.env.PGUSER,
+        host: process.env.PGHOST,
+        database: process.env.PGDB,
+        password: process.env.PGPASS
+    };    
+}
+
 
 class Db {
   constructor() {
