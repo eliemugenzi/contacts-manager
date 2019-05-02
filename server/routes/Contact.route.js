@@ -13,6 +13,7 @@ router.patch(
   ContactController.updatePhone
 );
 router.delete("/:id", ContactController.deleteContact);
+router.get("/search", ContactController.searchContact);
 router.get("/:id", ContactController.findOne);
 
 export default router;

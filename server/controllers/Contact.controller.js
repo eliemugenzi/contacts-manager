@@ -12,7 +12,7 @@ class ContactController {
       .catch(err => {
         res.status(500).json({
           status: 500,
-          message: "Internal Server error!"
+          error: "Internal Server error!"
         });
       });
   }
@@ -29,14 +29,14 @@ class ContactController {
         } else {
           res.status(404).json({
             status: 404,
-            message: "This contact is not available!"
+            error: "This contact is not available!"
           });
         }
       })
       .catch(err => {
         res.status(500).json({
           status: 500,
-          message: "Internal Server error!"
+          error: "Internal Server error!"
         });
       });
   }
@@ -59,7 +59,7 @@ class ContactController {
       .catch(err => {
         res.status(500).json({
           status: 500,
-          message: "Internal Server Error!"
+          error: "Internal Server Error!"
         });
       });
   }
@@ -75,26 +75,26 @@ class ContactController {
             .then(() => {
               res.json({
                 status: 200,
-                message: "Contact Deleted successfully!"
+                error: "Contact Deleted successfully!"
               });
             })
             .catch(err => {
               res.status(500).json({
                 status: 500,
-                message: "Internal Server error!"
+                error: "Internal Server error!"
               });
             });
         } else {
           res.status(404).json({
             status: 404,
-            message: "This contact is not available"
+            error: "This contact is not available"
           });
         }
       })
       .catch(err => {
         res.status(500).json({
           status: 500,
-          message: "Internal server error!"
+          error: "Internal server error!"
         });
       });
   }
@@ -111,27 +111,27 @@ class ContactController {
             .then(result => {
               res.json({
                 status: 200,
-                message: "Contact Updated Successfully!",
+                error: "Contact Updated Successfully!",
                 data: result
               });
             })
             .catch(err => {
               res.status(500).json({
                 status: 500,
-                message: "Internal Server error!"
+                error: "Internal Server error!"
               });
             });
         } else {
           res.status(404).json({
             status: 404,
-            message: "Contact is not available"
+            error: "Contact is not available"
           });
         }
       })
       .catch(err => {
         res.status(500).json({
           status: 500,
-          message: "Internal Server error!"
+          error: "Internal Server error!"
         });
       });
   }
@@ -148,7 +148,7 @@ class ContactController {
             .then(result => {
               res.json({
                 status: 200,
-                message: "Phone updated successfully!",
+                error: "Phone updated successfully!",
                 data: result
               });
             })
@@ -156,13 +156,13 @@ class ContactController {
               console.log(err);
               res.status(500).json({
                 status: 500,
-                message: "Internal Server error!"
+                error: "Internal Server error!"
               });
             });
         } else {
           res.status(404).json({
             status: 404,
-            message: "This contact is not available"
+            error: "This contact is not available"
           });
         }
       })
@@ -170,7 +170,32 @@ class ContactController {
         console.log(err);
         res.status(500).json({
           status: 500,
-          message: "Internal Server error!"
+          error: "Internal Server error!"
+        });
+      });
+  }
+
+  static searchContact(req, res) {
+    const { q } = req.query;
+    Contact.search(q)
+      .then(contacts => {
+        if (contacts.length) {
+          res.json({
+            status: 200,
+            data: contacts
+          });
+        } else {
+          res.status(404).json({
+            status: 404,
+            error: `Contact with name ${q} is not available`
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          status: 500,
+          error: `Internal Server error! ${err}`
         });
       });
   }
