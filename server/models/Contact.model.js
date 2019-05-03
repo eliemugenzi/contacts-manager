@@ -32,8 +32,8 @@ class Contact {
     }
   }
 
-  async updateName(contact) {
-    const sql = `UPDATE contacts SET name='${contact.name}' WHERE id='${
+  async updateName({ name }) {
+    const sql = `UPDATE contacts SET name='${name}' WHERE id='${
       this.contact.id
     }' RETURNING *`;
     const { rows } = await Db.query(sql);
